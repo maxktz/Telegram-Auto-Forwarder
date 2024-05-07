@@ -37,11 +37,11 @@ class AutoForwarder:
         client: TelegramClient = event.client
         message: types.Message = event.message
         if all((
+            not message.noforwards,
             message.chat_id != FORWARD_TO_ID,
             message.is_channel,
-            not message.noforwards,
+            not message.is_group,
             message.forward is None,
-            message.out is False,
         )):
             while True:
                 try:
